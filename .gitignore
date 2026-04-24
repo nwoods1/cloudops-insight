@@ -1,0 +1,30 @@
+# node
+node_modules/
+dist/
+build/
+
+# env files
+.env
+.env.local
+
+# Java
+target/
+*.class
+*.jar
+*.war
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# CDK
+cdk.out/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
