@@ -1,11 +1,20 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
+import { useAuth } from '../contexts/AuthContext';
 import './Layout.css';
 
 export default function Layout() {
   const { lastRefresh, loading, incidents, refresh } = useData();
+  const { logoutUser } = useAuth();
+  const navigate = useNavigate();
+
   const criticalCount = incidents.filter(i => i.severity === 'HIGH' && i.status === 'OPEN').length;
   const fmt = (d: Date) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  function handleLogout() {
+    logoutUser();
+    navigate('/login');
+  }
 
   return (
     <div className="layout">
@@ -55,6 +64,19 @@ export default function Layout() {
             <RefreshIcon />
           </button>
         </div>
+
+        <button
+          onClick={handleLogout}
+          style={{
+            marginTop: '12px',
+            padding: '10px 12px',
+            borderRadius: '10px',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          Logout
+        </button>
       </aside>
 
       <main className="main-content">

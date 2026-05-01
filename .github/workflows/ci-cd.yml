@@ -49,8 +49,8 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
-      - name: Build backend
-        run: ./mvnw clean package -DskipTests
+      - name: Build and test backend
+        run: ./mvnw clean verify
 
   lambda-tests:
     runs-on: ubuntu-latest

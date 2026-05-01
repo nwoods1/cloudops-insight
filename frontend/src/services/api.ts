@@ -1,26 +1,53 @@
 const BASE_URL = "http://localhost:8080/api";
 
+function getAuthHeaders() {
+  const token = localStorage.getItem("token");
+  return token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
+}
+
 export async function fetchMetrics() {
-  const response = await fetch(`${BASE_URL}/metrics`);
+  const response = await fetch(`${BASE_URL}/metrics`, {
+    headers: {
+      ...getAuthHeaders(),
+    },
+  });
+
   if (!response.ok) {
     throw new Error("Failed to fetch metrics");
   }
+
   return response.json();
 }
 
 export async function fetchIncidents() {
-  const response = await fetch(`${BASE_URL}/incidents`);
+  const response = await fetch(`${BASE_URL}/incidents`, {
+    headers: {
+      ...getAuthHeaders(),
+    },
+  });
+
   if (!response.ok) {
     throw new Error("Failed to fetch incidents");
   }
+
   return response.json();
 }
 
 export async function fetchRegionSummaries() {
-  const response = await fetch(`${BASE_URL}/regions/summary`);
+  const response = await fetch(`${BASE_URL}/regions/summary`, {
+    headers: {
+      ...getAuthHeaders(),
+    },
+  });
+
   if (!response.ok) {
     throw new Error("Failed to fetch region summaries");
   }
+
   return response.json();
 }
 
@@ -29,6 +56,7 @@ export async function sendChatQuestion(question: string) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...getAuthHeaders(),
     },
     body: JSON.stringify({ question }),
   });
@@ -47,10 +75,11 @@ export async function exportIncidents(filters?: {
   timeFrame?: string;
   fields?: string[];
 }) {
-  const response = await fetch("http://localhost:8080/api/exports/incidents", {
+  const response = await fetch(`${BASE_URL}/exports/incidents`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...getAuthHeaders(),
     },
     body: JSON.stringify(filters || {}),
   });
@@ -68,10 +97,11 @@ export async function exportMetrics(filters?: {
   timeFrame?: string;
   fields?: string[];
 }) {
-  const response = await fetch("http://localhost:8080/api/exports/metrics", {
+  const response = await fetch(`${BASE_URL}/exports/metrics`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...getAuthHeaders(),
     },
     body: JSON.stringify(filters || {}),
   });
@@ -84,12 +114,31 @@ export async function exportMetrics(filters?: {
 }
 
 export async function exportRegions() {
-  const response = await fetch("http://localhost:8080/api/exports/regions", {
+  const response = await fetch(`${BASE_URL}/exports/regions`, {
     method: "POST",
+    headers: {
+      ...getAuthHeaders(),
+    },
   });
 
   if (!response.ok) {
     throw new Error("Failed to export region summaries");
+  }
+
+  return response.json();
+}
+
+export async function login(username: string, password: string) {
+  const response = await fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Invalid login");
   }
 
   return response.json();
