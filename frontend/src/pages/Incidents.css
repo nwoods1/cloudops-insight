@@ -1,0 +1,17 @@
+.inc-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.result-count {
+  font-size: 13px;
+  color: var(--text-faint);
+  white-space: nowrap;
+  padding: 9px 4px;
+}
+
+@media (max-width: 800px) {
+  .inc-charts-row { grid-template-columns: 1fr; }
+}

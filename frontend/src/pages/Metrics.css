@@ -1,0 +1,22 @@
+.met-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.met-val {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.met-val--ok   { background: var(--success-light); color: var(--success-dark); }
+.met-val--warn { background: var(--warning-light); color: var(--warning-dark); }
+.met-val--bad  { background: var(--danger-light);  color: var(--danger-dark); }
+
+@media (max-width: 900px) {
+  .met-charts-row { grid-template-columns: 1fr; }
+}
