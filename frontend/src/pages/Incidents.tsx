@@ -94,7 +94,7 @@ export default function Incidents() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
-                <Tooltip formatter={(v: number) => [v, 'Open incidents']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="count" fill="#6366f1" radius={[4,4,0,0]} maxBarSize={36} />
               </BarChart>
             </ResponsiveContainer>
