@@ -1,12 +1,8 @@
 const BASE_URL = "http://localhost:8080/api";
 
-function getAuthHeaders() {
+function getAuthHeaders(): Record<string, string> {
   const token = localStorage.getItem("token");
-  return token
-    ? {
-        Authorization: `Bearer ${token}`,
-      }
-    : {};
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 export async function fetchMetrics() {
