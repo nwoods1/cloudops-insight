@@ -1,12 +1,14 @@
 package com.cloudops.backend.controller;
 
+import com.cloudops.backend.config.JwtAuthenticationFilter;
 import com.cloudops.backend.model.ExportResponse;
 import com.cloudops.backend.service.ExportService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -15,6 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ExportController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class ExportControllerTest {
 
     @Autowired
@@ -22,6 +25,9 @@ class ExportControllerTest {
 
     @MockitoBean
     private ExportService exportService;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Test
     void exportMetrics_returnsOk() throws Exception {
