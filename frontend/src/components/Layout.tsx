@@ -22,8 +22,8 @@ export default function Layout() {
         <div className="sidebar-brand">
           <div className="brand-logo">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#818cf8" />
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#6366f1" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#22d3ee" />
+              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#06b6d4" strokeWidth="1.5" fill="none" strokeLinecap="round" />
             </svg>
           </div>
           <div>
@@ -65,16 +65,8 @@ export default function Layout() {
           </button>
         </div>
 
-        <button
-          onClick={handleLogout}
-          style={{
-            marginTop: '12px',
-            padding: '10px 12px',
-            borderRadius: '10px',
-            border: 'none',
-            cursor: 'pointer'
-          }}
-        >
+        <button className="sidebar-logout" onClick={handleLogout}>
+          <LogoutIcon />
           Logout
         </button>
       </aside>
@@ -127,6 +119,16 @@ function RefreshIcon() {
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" />
       <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+    </svg>
+  );
+}
+
+function LogoutIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
     </svg>
   );
 }

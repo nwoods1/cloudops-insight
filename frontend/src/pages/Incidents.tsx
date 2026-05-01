@@ -7,7 +7,14 @@ import { useData } from '../contexts/DataContext';
 import type { Incident } from '../types/Incident';
 import './Incidents.css';
 
-const TT_STYLE = { borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.12)', fontSize: '13px' };
+const TT_STYLE = {
+  borderRadius: '8px',
+  border: '1px solid rgba(255,255,255,0.08)',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+  fontSize: '13px',
+  background: '#162033',
+  color: '#e2eaf8',
+};
 
 export default function Incidents() {
   const { incidents, loading } = useData();
@@ -80,7 +87,7 @@ export default function Incidents() {
               <PieChart>
                 <Pie data={sevPie} cx="50%" cy="50%" innerRadius={52} outerRadius={82} paddingAngle={3} dataKey="value" />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -91,11 +98,11 @@ export default function Incidents() {
           <div className="chart-wrap">
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={regionBars} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
-                <Bar dataKey="count" fill="#6366f1" radius={[4,4,0,0]} maxBarSize={36} />
+                <Bar dataKey="count" fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={36} />
               </BarChart>
             </ResponsiveContainer>
           </div>

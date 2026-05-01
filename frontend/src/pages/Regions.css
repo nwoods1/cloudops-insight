@@ -12,9 +12,9 @@
   border-radius: var(--radius-md);
   padding: 20px;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
 }
-.region-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.region-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-color: var(--border-hover); }
 
 .region-card--healthy  { border-top: 3px solid var(--success); }
 .region-card--warning  { border-top: 3px solid var(--warning); }
@@ -29,16 +29,16 @@
   font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
   text-transform: capitalize; white-space: nowrap; letter-spacing: 0.03em;
 }
-.region-health-badge--healthy  { background: var(--success-light); color: var(--success-dark); }
-.region-health-badge--warning  { background: var(--warning-light); color: var(--warning-dark); }
-.region-health-badge--critical { background: var(--danger-light);  color: var(--danger-dark); }
+.region-health-badge--healthy  { background: var(--success-light); color: var(--success); }
+.region-health-badge--warning  { background: var(--warning-light); color: var(--warning); }
+.region-health-badge--critical { background: var(--danger-light);  color: var(--danger); }
 
 /* Score ring */
 .region-score-ring {
   position: relative; width: 80px; height: 80px; margin: 0 auto 16px;
 }
 .ring-svg { width: 100%; height: 100%; }
-.ring-track { stroke: #f1f5f9; }
+.ring-track { stroke: rgba(255,255,255,0.08); }
 .ring-fill--healthy  { stroke: var(--success); }
 .ring-fill--warning  { stroke: var(--warning); }
 .ring-fill--critical { stroke: var(--danger); }
@@ -55,7 +55,7 @@
 }
 .rc-stat { display: flex; flex-direction: column; gap: 2px; }
 .rc-stat-val { font-size: 15px; font-weight: 700; color: var(--text); }
-.rc-stat-val--warn { color: var(--warning-dark); }
+.rc-stat-val--warn { color: var(--warning); }
 .rc-stat-label { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; }
 
 /* Charts row */
@@ -68,7 +68,7 @@
 
 /* Score bar in table */
 .score-bar-wrap { display: flex; align-items: center; gap: 8px; }
-.score-bar-track { flex: 1; height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden; }
+.score-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
 .score-bar-fill  { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
 .score-bar-fill--healthy  { background: var(--success); }
 .score-bar-fill--warning  { background: var(--warning); }

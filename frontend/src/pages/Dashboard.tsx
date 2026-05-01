@@ -10,8 +10,15 @@ import './Dashboard.css';
 import ChatPanel from "../components/ChatPanel";
 import ExportPanel from "../components/ExportPanel";
 
-const SEV_COLORS: Record<string, string> = { HIGH: '#ef4444', MEDIUM: '#f59e0b', LOW: '#3b82f6' };
-const TT_STYLE = { borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.12)', fontSize: '13px' };
+const SEV_COLORS: Record<string, string> = { HIGH: '#f87171', MEDIUM: '#fbbf24', LOW: '#60a5fa' };
+const TT_STYLE = {
+  borderRadius: '8px',
+  border: '1px solid rgba(255,255,255,0.08)',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+  fontSize: '13px',
+  background: '#162033',
+  color: '#e2eaf8',
+};
 
 export default function Dashboard() {
   const { metrics, incidents, regions, loading } = useData();
@@ -94,7 +101,7 @@ export default function Dashboard() {
               <PieChart>
                 <Pie data={severityPie} cx="50%" cy="50%" innerRadius={58} outerRadius={92} paddingAngle={3} dataKey="value" />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -107,11 +114,11 @@ export default function Dashboard() {
           <div className="chart-wrap">
             <ResponsiveContainer width="100%" height={230}>
               <BarChart data={regionBars} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="ms" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="ms" />
                 <Tooltip formatter={(value) => [`${value ?? 0}ms`, "Avg Latency"]} contentStyle={TT_STYLE} />
-                <Bar dataKey="latency" fill="#6366f1" radius={[4,4,0,0]} maxBarSize={40} />
+                <Bar dataKey="latency" fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -126,15 +133,15 @@ export default function Dashboard() {
               <AreaChart data={uptimeTrend} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="uptimeGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#10b981" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    <stop offset="5%"  stopColor="#34d399" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#34d399" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis dataKey="t" hide />
-                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="%" width={40} />
+                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="%" width={40} />
                 <Tooltip formatter={(value) => [`${value ?? 0}%`, "Uptime"]} contentStyle={TT_STYLE} />
-                <Area type="monotone" dataKey="uptime" stroke="#10b981" strokeWidth={2} fill="url(#uptimeGrad)" dot={false} />
+                <Area type="monotone" dataKey="uptime" stroke="#34d399" strokeWidth={2} fill="url(#uptimeGrad)" dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -143,40 +150,43 @@ export default function Dashboard() {
 
       {/* Bottom */}
       <div className="db-bottom-row">
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">Recent Incidents</h3>
-            <button className="card-action" onClick={() => navigate('/incidents')}>View all →</button>
-          </div>
-          <div className="feed-list">
-            {incidents.slice(0, 7).map(inc => (
-              <div key={inc.incidentId} className="feed-item" onClick={() => navigate('/incidents')}>
-                <span className={`sev-dot sev-dot--${inc.severity.toLowerCase()}`} />
-                <div className="feed-item-body">
-                  <span className="feed-item-primary">{inc.serviceName}</span>
-                  <span className="feed-item-secondary">{inc.region}</span>
+        <div className="db-left-col">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Recent Incidents</h3>
+              <button className="card-action" onClick={() => navigate('/incidents')}>View all →</button>
+            </div>
+            <div className="feed-list">
+              {incidents.slice(0, 7).map(inc => (
+                <div key={inc.incidentId} className="feed-item" onClick={() => navigate('/incidents')}>
+                  <span className={`sev-dot sev-dot--${inc.severity.toLowerCase()}`} />
+                  <div className="feed-item-body">
+                    <span className="feed-item-primary">{inc.serviceName}</span>
+                    <span className="feed-item-secondary">{inc.region}</span>
+                  </div>
+                  <div className="feed-item-right">
+                    <span className={`status-chip status-chip--${inc.status.toLowerCase()}`}>{inc.status}</span>
+                    <span className={`sev-badge sev-badge--${inc.severity.toLowerCase()}`}>{inc.severity}</span>
+                  </div>
                 </div>
-                <div className="feed-item-right">
-                  <span className={`status-chip status-chip--${inc.status.toLowerCase()}`}>{inc.status}</span>
-                  <span className={`sev-badge sev-badge--${inc.severity.toLowerCase()}`}>{inc.severity}</span>
-                </div>
-              </div>
-            ))}
-            {incidents.length === 0 && <p className="empty-state">No incidents found</p>}
+              ))}
+              {incidents.length === 0 && <p className="empty-state">No incidents found</p>}
+            </div>
           </div>
-        <div className="card" style={{ marginTop: "24px" }}>
-        <div className="card-header">
-          <h3 className="card-title">AI Ops Assistant</h3>
-        </div>
-        <ChatPanel />
-      </div>
 
-      <div className="card" style={{ marginTop: "24px" }}>
-        <div className="card-header">
-          <h3 className="card-title">Exports</h3>
-        </div>
-        <ExportPanel />
-      </div>
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">AI Ops Assistant</h3>
+            </div>
+            <ChatPanel />
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Exports</h3>
+            </div>
+            <ExportPanel />
+          </div>
         </div>
 
         <div className="card">

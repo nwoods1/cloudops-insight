@@ -6,7 +6,14 @@ import {
 import { useData } from '../contexts/DataContext';
 import './Regions.css';
 
-const TT_STYLE = { borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.12)', fontSize: '13px' };
+const TT_STYLE = {
+  borderRadius: '8px',
+  border: '1px solid rgba(255,255,255,0.08)',
+  boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+  fontSize: '13px',
+  background: '#162033',
+  color: '#e2eaf8',
+};
 
 function healthScore(avgLatency: number, activeIncidents: number, uptime: number) {
   let s = 100;
@@ -46,7 +53,7 @@ export default function Regions() {
     ];
   }, [enriched]);
 
-  const RADAR_COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6'];
+  const RADAR_COLORS = ['#22d3ee', '#34d399', '#fbbf24', '#f87171', '#60a5fa', '#a78bfa'];
 
   if (loading && !regions.length) {
     return <div className="page-loader"><div className="spinner" /><span>Loading regions…</span></div>;
@@ -118,14 +125,14 @@ export default function Regions() {
           <div className="chart-wrap">
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={comparisonData} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
-                <YAxis yAxisId="lat" orientation="left"  tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="ms" />
-                <YAxis yAxisId="inc" orientation="right" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
+                <YAxis yAxisId="lat" orientation="left"  tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="ms" />
+                <YAxis yAxisId="inc" orientation="right" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip contentStyle={TT_STYLE} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
-                <Bar yAxisId="lat" dataKey="latency"   name="Avg Latency (ms)"  fill="#6366f1" radius={[4,4,0,0]} maxBarSize={28} />
-                <Bar yAxisId="inc" dataKey="incidents" name="Active Incidents"   fill="#ef4444" radius={[4,4,0,0]} maxBarSize={28} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
+                <Bar yAxisId="lat" dataKey="latency"   name="Avg Latency (ms)"  fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={28} />
+                <Bar yAxisId="inc" dataKey="incidents" name="Active Incidents"   fill="#f87171" radius={[4,4,0,0]} maxBarSize={28} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -137,8 +144,8 @@ export default function Regions() {
             <div className="chart-wrap">
               <ResponsiveContainer width="100%" height={260}>
                 <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-                  <PolarGrid stroke="#e2e8f0" />
-                  <PolarAngleAxis dataKey="metric" tick={{ fontSize: 11, fill: '#64748b' }} />
+                  <PolarGrid stroke="rgba(255,255,255,0.07)" />
+                  <PolarAngleAxis dataKey="metric" tick={{ fontSize: 11, fill: '#7a93b5' }} />
                   {enriched.slice(0, 6).map((r, i) => (
                     <Radar
                       key={r.region}
@@ -150,7 +157,7 @@ export default function Regions() {
                       strokeWidth={1.5}
                     />
                   ))}
-                  <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
+                  <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
                   <Tooltip contentStyle={TT_STYLE} />
                 </RadarChart>
               </ResponsiveContainer>
