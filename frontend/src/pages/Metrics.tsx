@@ -95,7 +95,7 @@ export default function Metrics() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="ms" />
-                <Tooltip formatter={(v: number) => [`${v}ms`, 'Avg Latency']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [`${value ?? 0}ms`, "Avg Latency"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="latency" fill="#6366f1" radius={[4,4,0,0]} maxBarSize={40} />
               </BarChart>
             </ResponsiveContainer>
@@ -110,7 +110,7 @@ export default function Metrics() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
                 <XAxis type="number" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="%" />
                 <YAxis type="category" dataKey="service" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} width={90} />
-                <Tooltip formatter={(v: number) => [`${v}%`, 'Error Rate']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [`${value ?? 0}%`, "Uptime"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="errorRate" fill="#ef4444" radius={[0,4,4,0]} maxBarSize={18} />
               </BarChart>
             </ResponsiveContainer>

@@ -93,7 +93,7 @@ export default function Dashboard() {
             <ResponsiveContainer width="100%" height={230}>
               <PieChart>
                 <Pie data={severityPie} cx="50%" cy="50%" innerRadius={58} outerRadius={92} paddingAngle={3} dataKey="value" />
-                <Tooltip formatter={(v: number) => [v, 'incidents']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
               </PieChart>
             </ResponsiveContainer>
@@ -110,7 +110,7 @@ export default function Dashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="ms" />
-                <Tooltip formatter={(v: number) => [`${v}ms`, 'Avg Latency']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [`${value ?? 0}ms`, "Avg Latency"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="latency" fill="#6366f1" radius={[4,4,0,0]} maxBarSize={40} />
               </BarChart>
             </ResponsiveContainer>
@@ -133,7 +133,7 @@ export default function Dashboard() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                 <XAxis dataKey="t" hide />
                 <YAxis domain={['auto', 'auto']} tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} unit="%" width={40} />
-                <Tooltip formatter={(v: number) => [`${v}%`, 'Uptime']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [`${value ?? 0}%`, "Uptime"]} contentStyle={TT_STYLE} />
                 <Area type="monotone" dataKey="uptime" stroke="#10b981" strokeWidth={2} fill="url(#uptimeGrad)" dot={false} />
               </AreaChart>
             </ResponsiveContainer>

@@ -79,7 +79,7 @@ export default function Incidents() {
             <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie data={sevPie} cx="50%" cy="50%" innerRadius={52} outerRadius={82} paddingAngle={3} dataKey="value" />
-                <Tooltip formatter={(v: number) => [v, 'incidents']} contentStyle={TT_STYLE} />
+                <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
                 <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px' }} />
               </PieChart>
             </ResponsiveContainer>
