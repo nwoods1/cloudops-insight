@@ -213,7 +213,7 @@ Generated reports are stored in S3 instead of inside the application database be
 * The project currently focuses on a limited set of services and operational metrics.
 * The system is intended as a monitoring-platform prototype rather than a production observability solution.
 * Authentication uses a single hardcoded admin credential rather than per-user accounts or role-based access control.
-* The JWT signing secret and admin password are currently stored as plaintext application properties rather than in a secrets manager.
+* The JWT signing secret and admin password are supplied through environment variables (`APP_AUTH_PASSWORD`, `JWT_SECRET`).
 * The `infrastructure/` AWS CDK stack is a placeholder; the DynamoDB tables, S3 bucket, and Lambda functions used by the app were provisioned manually rather than through code.
 * The CI workflow builds and tests the project but does not deploy it — there is no automated release pipeline.
 
@@ -221,7 +221,6 @@ Generated reports are stored in S3 instead of inside the application database be
 
 * Connect the platform to real AWS CloudWatch metrics and alarms
 * Replace the single hardcoded admin login with per-user accounts and role-based access control
-* Move secrets (JWT signing key, credentials) out of application properties and into a secrets manager
 * Implement the AWS CDK stack so infrastructure can be deployed and reproduced from code
 * Trigger the metric-collector Lambda on a schedule (e.g., EventBridge) instead of running it manually
 * Extend CI into a full CD pipeline that deploys to AWS on merge

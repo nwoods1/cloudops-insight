@@ -8,11 +8,11 @@ import type { Incident } from '../types/Incident';
 import './Incidents.css';
 
 const TT_STYLE = {
-  borderRadius: '8px',
-  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '0px',
+  border: '1px solid rgba(255,255,255,0.14)',
   boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
   fontSize: '13px',
-  background: '#162033',
+  background: 'rgba(42,32,90,0.92)',
   color: '#e2eaf8',
 };
 
@@ -87,7 +87,7 @@ export default function Incidents() {
               <PieChart>
                 <Pie data={sevPie} cx="50%" cy="50%" innerRadius={52} outerRadius={82} paddingAngle={3} dataKey="value" />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#c7c2e8' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -99,8 +99,8 @@ export default function Incidents() {
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={regionBars} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="count" fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={36} />
               </BarChart>
@@ -184,9 +184,7 @@ export default function Incidents() {
                 {' '}&nbsp;<span className={`status-chip status-chip--${selected.status.toLowerCase()}`}>{selected.status}</span>
               </div>
             </div>
-            <button className="detail-close" onClick={() => setSelected(null)}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+            <button className="detail-close" onClick={() => setSelected(null)}>×</button>
           </div>
           <div className="detail-body">
             <div className="detail-field"><span className="detail-field-label">Region</span><span className="detail-field-value">{selected.region}</span></div>

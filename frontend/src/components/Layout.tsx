@@ -20,12 +20,6 @@ export default function Layout() {
     <div className="layout">
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <div className="brand-logo">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#22d3ee" />
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="#06b6d4" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
           <div>
             <div className="brand-name">CloudOps</div>
             <div className="brand-tagline">Insight</div>
@@ -36,20 +30,16 @@ export default function Layout() {
 
         <nav className="sidebar-nav">
           <NavLink to="/dashboard" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
-            <span className="nav-icon"><GridIcon /></span>
             <span>Dashboard</span>
           </NavLink>
           <NavLink to="/incidents" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
-            <span className="nav-icon"><AlertIcon /></span>
             <span>Incidents</span>
             {criticalCount > 0 && <span className="nav-badge">{criticalCount}</span>}
           </NavLink>
           <NavLink to="/metrics" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
-            <span className="nav-icon"><ActivityIcon /></span>
             <span>Metrics</span>
           </NavLink>
           <NavLink to="/regions" className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}>
-            <span className="nav-icon"><GlobeIcon /></span>
             <span>Regions</span>
           </NavLink>
         </nav>
@@ -61,12 +51,11 @@ export default function Layout() {
             <span className="status-time">Updated {fmt(lastRefresh)}</span>
           </div>
           <button className="refresh-btn" onClick={refresh} aria-label="Refresh data">
-            <RefreshIcon />
+            Refresh
           </button>
         </div>
 
         <button className="sidebar-logout" onClick={handleLogout}>
-          <LogoutIcon />
           Logout
         </button>
       </aside>
@@ -75,60 +64,5 @@ export default function Layout() {
         <Outlet />
       </main>
     </div>
-  );
-}
-
-function GridIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
-      <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
-    </svg>
-  );
-}
-
-function AlertIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-      <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
-    </svg>
-  );
-}
-
-function ActivityIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    </svg>
-  );
-}
-
-function RefreshIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" />
-      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-    </svg>
-  );
-}
-
-function LogoutIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-      <polyline points="16 17 21 12 16 7" />
-      <line x1="21" y1="12" x2="9" y2="12" />
-    </svg>
   );
 }

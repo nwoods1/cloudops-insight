@@ -8,11 +8,11 @@ import type { Metric } from '../types/Metric';
 import './Metrics.css';
 
 const TT_STYLE = {
-  borderRadius: '8px',
-  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '0px',
+  border: '1px solid rgba(255,255,255,0.14)',
   boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
   fontSize: '13px',
-  background: '#162033',
+  background: 'rgba(42,32,90,0.92)',
   color: '#e2eaf8',
 };
 
@@ -79,15 +79,12 @@ export default function Metrics() {
       {/* KPIs */}
       <div className="kpi-grid" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
         <div className="kpi-card kpi-card--info">
-          <div className="kpi-icon-wrap"><LatIcon /></div>
           <div className="kpi-data"><div className="kpi-value">{stats.avgLatency}ms</div><div className="kpi-label">Avg Latency</div></div>
         </div>
         <div className="kpi-card kpi-card--success">
-          <div className="kpi-icon-wrap"><UptIcon /></div>
           <div className="kpi-data"><div className="kpi-value">{stats.avgUptime}%</div><div className="kpi-label">Avg Uptime</div></div>
         </div>
         <div className="kpi-card kpi-card--danger">
-          <div className="kpi-icon-wrap"><ErrIcon /></div>
           <div className="kpi-data"><div className="kpi-value">{stats.avgError}%</div><div className="kpi-label">Avg Error Rate</div></div>
         </div>
       </div>
@@ -100,8 +97,8 @@ export default function Metrics() {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={latencyByRegion} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="ms" />
+                <XAxis dataKey="region" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="ms" />
                 <Tooltip formatter={(value) => [`${value ?? 0}ms`, "Avg Latency"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="latency" fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={40} />
               </BarChart>
@@ -115,8 +112,8 @@ export default function Metrics() {
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={errorByService} layout="vertical" margin={{ top: 4, right: 24, bottom: 4, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
-                <XAxis type="number" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="%" />
-                <YAxis type="category" dataKey="service" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} width={90} />
+                <XAxis type="number" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="%" />
+                <YAxis type="category" dataKey="service" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} width={90} />
                 <Tooltip formatter={(value) => [`${value ?? 0}%`, "Uptime"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="errorRate" fill="#f87171" radius={[0,4,4,0]} maxBarSize={18} />
               </BarChart>
@@ -131,24 +128,14 @@ export default function Metrics() {
         <div className="chart-wrap">
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={uptimeTrend} margin={{ top: 4, right: 24, bottom: 0, left: 0 }}>
-              <defs>
-                <linearGradient id="uptimeG"  x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#34d399" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="#34d399" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="latencyG" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#22d3ee" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#22d3ee" stopOpacity={0} />
-                </linearGradient>
-              </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
               <XAxis dataKey="t" hide />
-              <YAxis yAxisId="up"  orientation="left"  tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="%" domain={['auto','auto']} width={40} />
-              <YAxis yAxisId="lat" orientation="right" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="ms" domain={['auto','auto']} width={48} />
+              <YAxis yAxisId="up"  orientation="left"  tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="%" domain={['auto','auto']} width={40} />
+              <YAxis yAxisId="lat" orientation="right" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="ms" domain={['auto','auto']} width={48} />
               <Tooltip contentStyle={TT_STYLE} />
-              <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
-              <Area yAxisId="up"  type="monotone" dataKey="uptime"  name="Uptime (%)"   stroke="#34d399" strokeWidth={2} fill="url(#uptimeG)"  dot={false} />
-              <Area yAxisId="lat" type="monotone" dataKey="latency" name="Latency (ms)"  stroke="#22d3ee" strokeWidth={2} fill="url(#latencyG)" dot={false} />
+              <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#c7c2e8' }} />
+              <Area yAxisId="up"  type="monotone" dataKey="uptime"  name="Uptime (%)"   stroke="#34d399" strokeWidth={2} fill="rgba(52,211,153,0.12)" dot={false} />
+              <Area yAxisId="lat" type="monotone" dataKey="latency" name="Latency (ms)"  stroke="#22d3ee" strokeWidth={2} fill="rgba(34,211,238,0.1)" dot={false} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -213,9 +200,7 @@ export default function Metrics() {
         <div className="detail-panel">
           <div className="detail-header">
             <div className="detail-title">{selected.metricId}</div>
-            <button className="detail-close" onClick={() => setSelected(null)}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+            <button className="detail-close" onClick={() => setSelected(null)}>×</button>
           </div>
           <div className="detail-body">
             <div className="detail-field"><span className="detail-field-label">Region</span><span className="detail-field-value">{selected.region}</span></div>
@@ -230,7 +215,3 @@ export default function Metrics() {
     </div>
   );
 }
-
-function LatIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>; }
-function UptIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>; }
-function ErrIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>; }

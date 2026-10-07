@@ -33,35 +33,14 @@ export default function ChatPanel() {
       <button className="chat-btn" onClick={handleAsk} disabled={loading}>
         {loading ? (
           <><span className="chat-spinner" />Thinking…</>
-        ) : (
-          <><AskIcon />Ask Assistant</>
-        )}
+        ) : 'Ask Assistant'}
       </button>
       {answer && (
         <div className="chat-answer">
-          <div className="chat-answer-label">
-            <AssistantIcon />
-            Assistant
-          </div>
+          <div className="chat-answer-label">Assistant</div>
           <p className="chat-answer-text">{answer}</p>
         </div>
       )}
     </div>
-  );
-}
-
-function AskIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-    </svg>
-  );
-}
-
-function AssistantIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
-    </svg>
   );
 }

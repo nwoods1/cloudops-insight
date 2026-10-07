@@ -12,11 +12,11 @@ import ExportPanel from "../components/ExportPanel";
 
 const SEV_COLORS: Record<string, string> = { HIGH: '#f87171', MEDIUM: '#fbbf24', LOW: '#60a5fa' };
 const TT_STYLE = {
-  borderRadius: '8px',
-  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '0px',
+  border: '1px solid rgba(255,255,255,0.14)',
   boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
   fontSize: '13px',
-  background: '#162033',
+  background: 'rgba(42,32,90,0.92)',
   color: '#e2eaf8',
 };
 
@@ -83,11 +83,11 @@ export default function Dashboard() {
 
       {/* KPIs */}
       <div className="kpi-grid">
-        <KpiCard label="Total Incidents" value={stats.total} color="default" icon={<FileIcon />} />
-        <KpiCard label="Open Incidents"  value={stats.open}  color="warning" icon={<BellIcon />} />
-        <KpiCard label="High Severity"   value={stats.high}  color="danger"  icon={<WarnIcon />} />
-        <KpiCard label="Avg Latency"     value={`${stats.avgLatency}ms`} color="info"    icon={<ClockIcon />} />
-        <KpiCard label="Avg Uptime"      value={`${stats.avgUptime}%`}   color="success" icon={<CheckIcon />} />
+        <KpiCard label="Total Incidents" value={stats.total} color="default" />
+        <KpiCard label="Open Incidents"  value={stats.open}  color="warning" />
+        <KpiCard label="High Severity"   value={stats.high}  color="danger" />
+        <KpiCard label="Avg Latency"     value={`${stats.avgLatency}ms`} color="info" />
+        <KpiCard label="Avg Uptime"      value={`${stats.avgUptime}%`}   color="success" />
       </div>
 
       {/* Charts row */}
@@ -101,7 +101,7 @@ export default function Dashboard() {
               <PieChart>
                 <Pie data={severityPie} cx="50%" cy="50%" innerRadius={58} outerRadius={92} paddingAngle={3} dataKey="value" />
                 <Tooltip formatter={(value) => [value ?? 0, "incidents"]} contentStyle={TT_STYLE} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#7a93b5' }} />
+                <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: '12px', color: '#c7c2e8' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -115,8 +115,8 @@ export default function Dashboard() {
             <ResponsiveContainer width="100%" height={230}>
               <BarChart data={regionBars} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="ms" />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="ms" />
                 <Tooltip formatter={(value) => [`${value ?? 0}ms`, "Avg Latency"]} contentStyle={TT_STYLE} />
                 <Bar dataKey="latency" fill="#22d3ee" radius={[4,4,0,0]} maxBarSize={40} />
               </BarChart>
@@ -131,17 +131,11 @@ export default function Dashboard() {
           <div className="chart-wrap">
             <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={uptimeTrend} margin={{ top: 4, right: 16, bottom: 0, left: 0 }}>
-                <defs>
-                  <linearGradient id="uptimeGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%"  stopColor="#34d399" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#34d399" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis dataKey="t" hide />
-                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 11, fill: '#3d5574' }} axisLine={false} tickLine={false} unit="%" width={40} />
+                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 11, fill: '#8d85bf' }} axisLine={false} tickLine={false} unit="%" width={40} />
                 <Tooltip formatter={(value) => [`${value ?? 0}%`, "Uptime"]} contentStyle={TT_STYLE} />
-                <Area type="monotone" dataKey="uptime" stroke="#34d399" strokeWidth={2} fill="url(#uptimeGrad)" dot={false} />
+                <Area type="monotone" dataKey="uptime" stroke="#34d399" strokeWidth={2} fill="rgba(52,211,153,0.12)" dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -218,10 +212,9 @@ export default function Dashboard() {
   );
 }
 
-function KpiCard({ label, value, color, icon }: { label: string; value: string | number; color: string; icon: React.ReactNode }) {
+function KpiCard({ label, value, color }: { label: string; value: string | number; color: string }) {
   return (
     <div className={`kpi-card kpi-card--${color}`}>
-      <div className="kpi-icon-wrap">{icon}</div>
       <div className="kpi-data">
         <div className="kpi-value">{value}</div>
         <div className="kpi-label">{label}</div>
@@ -229,9 +222,3 @@ function KpiCard({ label, value, color, icon }: { label: string; value: string |
     </div>
   );
 }
-
-function FileIcon()  { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>; }
-function BellIcon()  { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>; }
-function WarnIcon()  { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>; }
-function ClockIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>; }
-function CheckIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>; }
